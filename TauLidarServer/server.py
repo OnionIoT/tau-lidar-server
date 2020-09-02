@@ -9,8 +9,8 @@ import websockets
 from http.server import SimpleHTTPRequestHandler, HTTPServer
 from http.client import HTTPSConnection
 
-from tof.camera import Camera
-from tof.color import ColorMode
+from TauLidarCamera.camera import Camera
+from TauLidarCamera.color import ColorMode
 
 attempts = 0
 while True:
@@ -35,7 +35,7 @@ while True:
     except Exception as e:
         attempts += 1
 
-        if attempts > 10:            
+        if attempts > 10:
             print("Exiting due to failure of opening ToF camera!")
             print("Error: %s" % str(e))
             try:
@@ -60,10 +60,10 @@ except:
     #print("No network ...")
     pass
 
-print("    IP address: %s" % ip_address)  
-print("    URL:  %s" % 'http://' + ip_address + ':' + str(HTTP_PORT))  
+print("    IP address: %s" % ip_address)
+print("    URL:  %s" % 'http://' + ip_address + ':' + str(HTTP_PORT))
 
-print("\nPress Ctrl + C keys to shutdown ...")  
+print("\nPress Ctrl + C keys to shutdown ...")
 
 camera.setDefaultParameters()
 camera.setIntegrationTime3d(0, 1000)
@@ -81,10 +81,10 @@ async def send3DPoints(websocket, path):
     _count = 0
     while running:
         frame = camera.readFrame()
-        if frame == None: 
+        if frame == None:
             sleep(0.1)
             continue
-        
+
         _count += 1
 
         points = json.dumps(frame.points_3d)
@@ -92,7 +92,7 @@ async def send3DPoints(websocket, path):
         try:
             await websocket.send(points)
         except:
-            break  
+            break
     end_time = time()
     seconds_elapsed = end_time - start_time
     fps = float(_count) / float(seconds_elapsed)
@@ -108,7 +108,7 @@ ws_t.start()
 httpd = HTTPServer((ip_address, HTTP_PORT), SimpleHTTPRequestHandler)
 try:
     httpd.serve_forever()
-except KeyboardInterrupt:  
+except KeyboardInterrupt:
     running = False
     print('\nShutting down ...')
     sleep(0.1)
@@ -116,7 +116,7 @@ except KeyboardInterrupt:
     try:
         httpd.socket.close()
         httpd.server_close()
-        
+
         sys.exit(0)
     except SystemExit:
         os._exit(0)
