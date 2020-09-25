@@ -55,6 +55,6 @@ Local install of the tau-lidar-camera package:
 python -m pip install -e /path/to/tau-lidar-server
 ```
 
-Now run your testing program.
+Now test the package as you see fit.
 
 **Any edits to the `tau-lidar-server` package source code in `/path/to/tau-lidar-server` will be reflected when the testing program is run again**
