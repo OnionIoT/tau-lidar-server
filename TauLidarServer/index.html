@@ -3,29 +3,31 @@
   <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
-    <title>Pointcloud Viewer</title>
+    <title>Tau Pointcloud Viewer</title>
     <style>
       body {margin:0; padding:0; background-color:#000000}
       canvas {width:100%; height:100%;}
     </style>
 
-    <script src="js/three.min.js"></script>
   </head>
 
   <body>
 
     <div id="container" style="width:100%; height:100%; position:relative;"> </div>
 
-        <script>
+        <script type="module" id='app'>
+            import * as THREE from 'https://unpkg.com/three/build/three.module.js';
+            import { OrbitControls } from 'https://unpkg.com/three/examples/jsm/controls/OrbitControls.js';
+
 
             // Scene
             var scene = new THREE.Scene();
+            // scene.background = new THREE.Color( '#222f3e' );
 
             // Camera
-            var camera = new THREE.PerspectiveCamera(15, window.innerWidth / window.innerHeight, 0.5, 1000);
-            camera.position.z = -5;
-            //camera.position.y = 1;
-            //camera.position.x = -1;
+            var camera = new THREE.PerspectiveCamera(15, window.innerWidth / window.innerHeight, 1, 1000);
+            // camera.position.z = 200;
+            camera.position.set(0, 0, -5);
 
             // The renderer
             var renderer = new THREE.WebGLRenderer();
@@ -36,33 +38,32 @@
                 renderer.render(scene, camera);
             }
 
+
             // Setup controls
-            var controls = new THREE.TrackballControls(camera);
-            controls.rotateSpeed = 1.0;
-            controls.zoomSpeed = 10.2;
-            controls.panSpeed = 10;
-            controls.noZoom = false;
-            controls.noPan = false;
-            controls.staticMoving = true;
-            controls.dynamicDampingFactor = 0.3;
-            controls.keys = [65, 17, 18];
+            var controls = new OrbitControls(camera, renderer.domElement);
+            // controls.autoRotate = true;
             controls.addEventListener('change', render);
+
 
             // Render loop
             function animate() {
-                requestAnimationFrame(animate);
-                controls.update();
+                requestAnimationFrame( animate );
+                controls.update(); // only required if controls.enableDamping = true, or if controls.autoRotate = true
+                render();
             }
 
             // Build the scene
             var pointSize = 0.05;
 
+            var pointcloud;
             function buildScene(geometry, material) {
                 // Re-render the scene
-                material = new THREE.ParticleBasicMaterial({ size: pointSize, vertexColors: true });
-                var pointcloud = new THREE.ParticleSystem(geometry, material);
-                scene = new THREE.Scene();
-                scene.fog = new THREE.FogExp2(0x000000, 0.0009);
+                pointcloud = new THREE.Points(geometry, material);
+
+                scene.children.forEach(c => {
+                    scene.remove(c)
+                });
+
                 scene.add(pointcloud);
                 render();
             }
@@ -70,12 +71,14 @@
             var container = document.getElementById('container');
             container.appendChild(renderer.domElement);
 
+            var material = new THREE.PointsMaterial({size:pointSize, vertexColors:true});
+
             var ws = new WebSocket("ws://127.0.0.1:5678/")
             ws.onmessage = function (event) {
-                    points = JSON.parse(event.data);
+                    var points = JSON.parse(event.data);
 
                     var geometry = new THREE.Geometry({dynamic:true});
-                    var material = new THREE.ParticleBasicMaterial({size:pointSize, vertexColors:true});
+
                     var colors = [];
                     for(var i = 0; i < points.length; i++) {
                         var point = points[i];
@@ -86,8 +89,7 @@
                         var r = point[3];
                         var g = point[4];
                         var b = point[5];
-                        var rgb = b | (g << 8) | (r << 16);
-                        var rgb_str = '0x' + rgb.toString(16);
+                        var rgb_str = `rgb(${r}, ${g}, ${b})`
                         colors.push(new THREE.Color(rgb_str));
                     }
                     geometry.colors = colors;
@@ -96,6 +98,11 @@
 
             render();
             animate();
+            document.material = material
+            document.controls = controls
+            console.log(controls);
+            console.log(scene);
+            console.log(camera);
 
         </script>
 
