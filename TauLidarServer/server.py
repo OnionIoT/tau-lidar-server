@@ -8,6 +8,7 @@ from threading import Thread, Lock
 import websockets
 from http.server import SimpleHTTPRequestHandler, HTTPServer
 from http.client import HTTPSConnection
+import socketserver
 
 from TauLidarCamera.camera import Camera
 from TauLidarCamera.constants import VALUE_10MHZ, VALUE_20MHZ
@@ -16,7 +17,7 @@ from TauLidarCommon.color import ColorMode
 attempts = 0
 while True:
     try:
-        camera = Camera.open('/dev/tty.usbmodem00000000001A1') #alternatively can use camera.open('/dev/ttyACM0') to open specific port
+        camera = Camera.open() #alternatively can use camera.open('/dev/ttyACM0') to open specific port
 
         cameraInfo = camera.info()
         print("ToF camera opened successfully:")
@@ -27,12 +28,20 @@ while True:
         print("    resolution: %s" % cameraInfo.resolution)
         print("    port:       %s" % cameraInfo.port)
 
-        camera.setDefaultParameters()
-        camera.setIntegrationTime3d(0, 800)
-        camera.setMinimalAmplitude(0, 60)
-        camera.setModulationFrequency(VALUE_20MHZ) 
-        # camera.setIntegrationTimeGrayscale(30000)
-        Camera.setRange(0, 7000)
+        ## you may simply use camera.setDefaultParameters()
+        camera.setModulationFrequency(VALUE_20MHZ) ## frequency: 20MHZ
+        camera.setModulationChannel(0)             ## autoChannelEnabled: 0, channel: 0
+        camera.setMode(0)                          ## Mode 0, wide fov
+        camera.setHdr(0)                           ## HDR off
+        camera.setIntegrationTime3d(0, 800)        ## set integration time 0: 1000
+        camera.setMinimalAmplitude(0, 60)          ## set minimal amplitude 0: 80
+        camera.setOffset(0)                        ## set distance offset: 0
+        camera.setRoi(0, 0, 159, 59)               ## set ROI to max width and height
+        
+        ## static
+        Camera.setColorMode(ColorMode.DISTANCE)    ## use distance for point color
+        Camera.setRange(0, 7500)                   ## points in the distance range to be colored
+        
         break
 
     except Exception as e:
@@ -73,9 +82,6 @@ _count = 0
 start_time = time()
 running = True
 
-
-
-
 async def send3DPoints(websocket, path):
     global _count
     global running
@@ -108,8 +114,12 @@ ws_t = Thread(target=asyncio.get_event_loop().run_forever)
 ws_t.deamon = True
 ws_t.start()
 
-httpd = HTTPServer((ip_address, HTTP_PORT), SimpleHTTPRequestHandler)
-
+Handler = SimpleHTTPRequestHandler
+Handler.extensions_map.update({
+    ".js": "application/javascript",
+});
+#httpd = HTTPServer((ip_address, HTTP_PORT), SimpleHTTPRequestHandler)
+httpd = socketserver.TCPServer(("", HTTP_PORT), Handler)
 
 try:
     httpd.serve_forever()
