@@ -5,38 +5,57 @@
         <meta charset="utf-8">
         <title>Onion Tau Studio</title>
 
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+        <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
+        <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+        <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"> -->
         
     </head>
 
   <body>
     <div id='app'>
 
-        <div id="ui" class="fixed-top m-2 w-25">
-            <div class="mb-2">
-                <div class="btn btn-secondary mr-2" @click="pointSize('up')">+</div>
-                <div class="btn btn-secondary" @click="pointSize('down')">-</div>
+        
+        <div id="ui" class="p-absolute m-2" style="max-width: 100px; z-index: 1000;">
+
+            <div class="m-2">
+
+                <div class="btn-group d-block mb-2">
+                    <div @click="autoRefresh = !autoRefresh" class='btn btn-action s-circle btn-sm tooltip tooltip-right' 
+                        data-tooltip="Play | Pause" :class="{'btn-primary': autoRefresh}">
+                        <i class="icon icon-arrow-right"></i>
+                    </div>
+                </div>
+                
+                <div class="d-block mb-2">
+                    <div @click="resetView" class='btn btn-action s-circle btn-sm tooltip tooltip-right mr-1'
+                        data-tooltip="Reset Camera">
+                        <i class="icon icon-resize-horiz"></i>
+                    </div>
+                    <div @click="onAutoRotate" class='btn btn-action s-circle btn-sm tooltip tooltip-right'
+                        data-tooltip="Auto Rotate Scene" :class="{'btn-primary': autoRotate}">
+                        <i class="icon icon-refresh"></i>
+                    </div>
+                </div>
+
+                <div class="btn-group d-block mb-2 tooltip tooltip-right" data-tooltip="Change Point Size">
+                    <div class="btn btn-sm btn-action s-circle" @click="pointSize('up')" ><i class="icon icon-plus"></i></div>
+                    <div class="btn btn-sm btn-action s-circle" @click="pointSize('down')"><i class="icon icon-minus"></i></div>
+                </div>
+    
+                <input type="range"  min="10" max="7000" step="10" class="slider tooltip tooltip-right" @change="setRange" :value="viewDistance"
+                    :data-tooltip="`Color Range: ${viewDistance/1000} m`">
+    
+                <input type="range"  min="0" max="1000" step="5" class="slider tooltip tooltip-right" @change="setIntTime3D" :value="intTime3D" 
+                    :data-tooltip="`3D Intergration Time ${intTime3D} us`">
             </div>
 
-            <div class="btn btn-secondary" @click="resetView">Reset</div>
 
 
-            <br>
-
-            <div class="btn btn-secondary" @click="snapshot">Refresh</div>
-            <input type="checkbox" id="checkbox" v-model="autoRefresh" />
-
-            <br>
-
-            <input type="range"  min="10" max="7000" step="10" class="form-control-range" @change="setRange" :value="viewDistance">
-
-            <input type="range"  min="0" max="1000" step="5" class="form-control-range" @change="setIntTime3D" :value="intTime3D">
-
-
-            <input type="checkbox" id="checkbox" v-model="autoRotate" />
         </div>
         
     </div>
+
     <div id="pointsView" style="width:100%; height:100%; position:relative;"> </div>
 
 

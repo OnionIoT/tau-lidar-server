@@ -18,8 +18,9 @@ const App = {
         return {
             counter: 0,
             viewDistance: 4000,
-            autoRefresh: false,
-            intTime3D: 1000
+            autoRotate: false,
+            autoRefresh: true,
+            intTime3D: 1000,
         }
     },
     methods: {
@@ -58,19 +59,17 @@ const App = {
                 value: value
             })
             this.intTime3D = value
+        },
+        onAutoRotate: function () {
+            this.autoRotate = !this.autoRotate
+            controls.autoRotate = this.autoRotate
         }
     },
     computed: {
-        autoRotate: {
-            get () {return (window.controls !== undefined)?window.controls.autoRotate:false },
-            set (val) { window.controls.autoRotate = val}
-        }
     }
 }
 
 const app = Vue.createApp(App)
-
-
 
 
 app.mount('#app')
