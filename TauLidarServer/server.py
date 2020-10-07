@@ -10,8 +10,8 @@ from http.server import SimpleHTTPRequestHandler, HTTPServer
 from http.client import HTTPSConnection
 
 from TauLidarCamera.camera import Camera
-from TauLidarCamera.color import ColorMode
 from TauLidarCamera.constants import VALUE_10MHZ, VALUE_20MHZ
+from TauLidarCommon.color import ColorMode
 
 attempts = 0
 while True:
