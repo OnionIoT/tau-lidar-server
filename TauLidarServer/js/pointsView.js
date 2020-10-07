@@ -52,9 +52,7 @@ var container = document.getElementById('pointsView');
 container.appendChild(renderer.domElement);
 
 
-
-
-ws.onmessage = function (event) {
+window.ws.onmessage = function (event) {
     var points = JSON.parse(event.data);
     
 

@@ -1,6 +1,14 @@
 
+import * as Vue from  'https://cdn.jsdelivr.net/npm/vue@next/dist/vue.esm-browser.js'
+import './pointsView.js'
+
+
 const App = {
     created() {
+        ws.onopen = () => {
+            this.setRange(this.viewDistance)
+            this.setIntTime3D(this.intTime3D)
+        }
         setInterval(()=>{
             if (this.autoRefresh)
             this.snapshot()
@@ -9,7 +17,9 @@ const App = {
     data() {
         return {
             counter: 0,
-            autoRefresh: false
+            viewDistance: 4000,
+            autoRefresh: false,
+            intTime3D: 1000
         }
     },
     methods: {
@@ -25,25 +35,42 @@ const App = {
             controls.reset()
         },
         snapshot () {
-            ws.send(JSON.stringify({
+            ws.sendObj({
                 cmd: 'read'
-            }))
+            })
         },
-        setRange (dist) {
-            ws.send(JSON.stringify({
+        setRange (e) {
+            if (typeof(e) === 'object') var value = parseInt(e.target.value)
+            else var value = e
+            ws.sendObj({
                 cmd: 'set',
                 param: 'range',
-                value: parseInt(dist)*1000
-            }))
+                value: value
+            })
+            this.viewDistance = value
         },
-        setIntTime3D (intTime) {
-            ws.send(JSON.stringify({
+        setIntTime3D (e) {
+            if (typeof(e) === 'object') var value = parseInt(e.target.value)
+            else var value = e
+            ws.sendObj({
                 cmd: 'set',
                 param: 'intTime3D',
-                value: parseInt(intTime)
-            }))
+                value: value
+            })
+            this.intTime3D = value
+        }
+    },
+    computed: {
+        autoRotate: {
+            get () {return (window.controls !== undefined)?window.controls.autoRotate:false },
+            set (val) { window.controls.autoRotate = val}
         }
     }
 }
 
-Vue.createApp(App).mount('#app')
+const app = Vue.createApp(App)
+
+
+
+
+app.mount('#app')
