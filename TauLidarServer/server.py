@@ -11,11 +11,12 @@ from http.client import HTTPSConnection
 
 from TauLidarCamera.camera import Camera
 from TauLidarCamera.color import ColorMode
+from TauLidarCamera.constants import VALUE_10MHZ, VALUE_20MHZ
 
 attempts = 0
 while True:
     try:
-        camera = Camera.open() #alternatively can use camera.open('/dev/ttyACM0') to open specific port
+        camera = Camera.open('/dev/tty.usbmodem00000000001A1') #alternatively can use camera.open('/dev/ttyACM0') to open specific port
 
         cameraInfo = camera.info()
         print("ToF camera opened successfully:")
@@ -27,9 +28,11 @@ while True:
         print("    port:       %s" % cameraInfo.port)
 
         camera.setDefaultParameters()
-        camera.setIntegrationTime3d(0, 600)
-        camera.setIntegrationTimeGrayscale(6000)
-        Camera.setRange(50, 7500)
+        camera.setIntegrationTime3d(0, 800)
+        camera.setMinimalAmplitude(0, 60)
+        camera.setModulationFrequency(VALUE_20MHZ) 
+        # camera.setIntegrationTimeGrayscale(30000)
+        Camera.setRange(0, 7000)
         break
 
     except Exception as e:
@@ -43,6 +46,7 @@ while True:
             except SystemExit:
                 os._exit(0)
         sleep(5)
+    sleep(0.1)
 
 HTTP_PORT = 8080
 WS_PORT = 5678
@@ -51,52 +55,51 @@ if len(sys.argv) == 3:
     WS_PORT = int(sys.argv[2])
 
 ip_address = '127.0.0.1'
-try:
-    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    s.connect(("8.8.8.8", 80))
-    ip_address = s.getsockname()[0]
-    s.close()
-except:
-    #print("No network ...")
-    pass
+# try:
+#     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+#     s.connect(("8.8.8.8", 80))
+#     ip_address = s.getsockname()[0]
+#     s.close()
+# except:
+#     #print("No network ...")
+#     pass
 
 print("    IP address: %s" % ip_address)
 print("    URL:  %s" % 'http://' + ip_address + ':' + str(HTTP_PORT))
 
 print("\nPress Ctrl + C keys to shutdown ...")
 
-camera.setDefaultParameters()
-camera.setIntegrationTime3d(0, 1000)
-camera.setIntegrationTimeGrayscale(6000)
-Camera.setRange(1000, 4000)
-
 _count = 0
 start_time = time()
 running = True
+
+
+
 
 async def send3DPoints(websocket, path):
     global _count
     global running
     start_time = time()
     _count = 0
-    while running:
-        frame = camera.readFrame()
-        if frame == None:
-            sleep(0.1)
-            continue
 
-        _count += 1
+    async for message in websocket:
+        data = json.loads(message)
 
-        points = json.dumps(frame.points_3d)
-
-        try:
-            await websocket.send(points)
-        except:
-            break
-    end_time = time()
-    seconds_elapsed = end_time - start_time
-    fps = float(_count) / float(seconds_elapsed)
-    print("Session closed, overall fps: %d" % fps)
+        if data['cmd'] == 'read':
+            frame = camera.readFrame()
+            if frame == None:
+                print('skip frame')
+                continue
+            points = json.dumps(frame.points_3d)
+            try:
+                await websocket.send(points)
+            except:
+                break
+        elif data['cmd'] == 'set':
+            if data['param'] == 'range':
+                Camera.setRange(0, data['value'])
+            elif data['param'] == 'intTime3D':
+                camera.setIntegrationTime3d(0, data['value'])
 
 ws_server = websockets.serve(send3DPoints, "127.0.0.1", WS_PORT)
 asyncio.get_event_loop().run_until_complete(ws_server)
@@ -106,6 +109,8 @@ ws_t.deamon = True
 ws_t.start()
 
 httpd = HTTPServer((ip_address, HTTP_PORT), SimpleHTTPRequestHandler)
+
+
 try:
     httpd.serve_forever()
 except KeyboardInterrupt:
@@ -116,7 +121,7 @@ except KeyboardInterrupt:
     try:
         httpd.socket.close()
         httpd.server_close()
-
+        
         sys.exit(0)
     except SystemExit:
         os._exit(0)
