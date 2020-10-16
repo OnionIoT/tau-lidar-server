@@ -92,6 +92,22 @@ async def send3DPoints(websocket, path):
         data = json.loads(message)
 
         if data['cmd'] == 'read':
+            '''
+            To get a 3D Frame object directly from calling camera.readFrame() is an expensive call,
+            alternatively you may call camera.readFrameRawData to get raw data
+            and possibly to compose Frame from a separate thread
+            to boost frame rate:
+
+            ...
+            from TauLidarCommon.d3 import FrameBuilder
+            ...
+            frameBuilder = FrameBuilder()
+            ...
+            dataArray = self.readFrameRawData()
+
+            # possibly you may compose Frame from a separate thread
+            frame = frameBuilder.composeFrame(dataArray)
+            '''
             frame = camera.readFrame()
             if frame == None:
                 print('skip frame')
@@ -118,7 +134,9 @@ Handler = SimpleHTTPRequestHandler
 Handler.extensions_map.update({
     ".js": "application/javascript",
 });
-#httpd = HTTPServer((ip_address, HTTP_PORT), SimpleHTTPRequestHandler)
+
+## HTTPServer does not handle well for javascript 6 importing, may switch back in future version when it fixed ##
+#httpd = HTTPServer((ip_address, HTTP_PORT), SimpleHTTPRequestHandler) 
 httpd = socketserver.TCPServer(("", HTTP_PORT), Handler)
 
 try:
