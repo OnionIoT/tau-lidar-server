@@ -18,9 +18,14 @@ activate virtual environment:
 source bin/activate
 ```
 
-Make sure you have a local version of the [tau-lidar-camera repo](https://github.com/OnionIoT/tau-lidar-camera)
+Make sure you have local versions of the [tau-lidar-common](https://github.com/OnionIoT/tau-lidar-common) and [tau-lidar-camera](https://github.com/OnionIoT/tau-lidar-camera) repos.
 
-Then install TauLidarCamera package
+Locally install the TauLidarCommon package
+```
+python -m pip install -e /path/to/tau-lidar-common
+```
+
+Locally install the TauLidarCamera package
 ```
 python -m pip install -e /path/to/tau-lidar-camera
 ```
