@@ -10,6 +10,7 @@ from http.server import SimpleHTTPRequestHandler, HTTPServer
 from http.client import HTTPSConnection
 import socketserver
 
+from TauLidarCommon.frame import FrameType, Frame
 from TauLidarCamera.camera import Camera
 from TauLidarCamera.constants import VALUE_10MHZ, VALUE_20MHZ
 from TauLidarCommon.color import ColorMode
@@ -103,10 +104,10 @@ async def send3DPoints(websocket, path):
             ...
             frameBuilder = FrameBuilder()
             ...
-            dataArray = self.readFrameRawData()
+            dataArray = camera.readFrameRawData(frameType=FrameType.DISTANCE_GRAYSCALE)
 
             # possibly you may compose Frame from a separate thread
-            frame = frameBuilder.composeFrame(dataArray)
+            frame = frameBuilder.composeFrame(dataArray, frameType=FrameType.DISTANCE_GRAYSCALE)
             '''
             frame = camera.readFrame()
             if frame == None:
