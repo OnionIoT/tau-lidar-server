@@ -19,7 +19,11 @@ def main():
     attempts = 0
     while True:
         try:
-            camera = Camera.open() #alternatively can use camera.open('/dev/ttyACM0') to open specific port
+            '''
+            By default, Camera will connect to the first available ToF device. 
+            Alternatively can specify serial port by using Camera.open('/dev/ttyACM0') to open specific port
+            '''
+            camera = Camera.open()
 
             cameraInfo = camera.info()
             print("\nToF camera opened successfully:")
@@ -99,8 +103,10 @@ def main():
                 ...
                 dataArray = camera.readFrameRawData(frameType=FrameType.DISTANCE_GRAYSCALE)
 
-                # possibly you may compose Frame from a separate thread
+                Possibly you may compose Frame from a separate thread
                 frame = frameBuilder.composeFrame(dataArray, frameType=FrameType.DISTANCE_GRAYSCALE)
+
+                By default, camera will read FrameType.DISTANCE_GRAYSCALE 
                 '''
                 frame = camera.readFrame()
                 if frame == None:
@@ -129,8 +135,6 @@ def main():
         ".js": "application/javascript",
     })
 
-    ## HTTPServer does not handle well for javascript 6 importing, may switch back in future version when it fixed ##
-    #httpd = HTTPServer((ip_address, HTTP_PORT), SimpleHTTPRequestHandler) 
     httpd = socketserver.TCPServer(("", HTTP_PORT), Handler)
 
     try:
