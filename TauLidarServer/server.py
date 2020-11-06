@@ -15,12 +15,12 @@ from TauLidarCamera.camera import Camera
 from TauLidarCamera.constants import VALUE_10MHZ, VALUE_20MHZ
 from TauLidarCommon.color import ColorMode
 
-def main():
+def serverLoop(HTTP_PORT = 8080, WS_PORT = 5678):
     attempts = 0
     while True:
         try:
             '''
-            By default, Camera will connect to the first available ToF device. 
+            By default, Camera will connect to the first available ToF device.
             Alternatively can specify serial port by using Camera.open('/dev/ttyACM0') to open specific port
             '''
             camera = Camera.open()
@@ -43,11 +43,11 @@ def main():
             camera.setMinimalAmplitude(0, 60)          ## set minimal amplitude 0: 80
             camera.setOffset(0)                        ## set distance offset: 0
             camera.setRoi(0, 0, 159, 59)               ## set ROI to max width and height
-            
+
             ## static
             Camera.setColorMode(ColorMode.DISTANCE)    ## use distance for point color
             Camera.setRange(0, 7500)                   ## points in the distance range to be colored
-            
+
             break
 
         except Exception as e:
@@ -63,11 +63,6 @@ def main():
             sleep(5)
         sleep(0.1)
 
-    HTTP_PORT = 8080
-    WS_PORT = 5678
-    if len(sys.argv) == 3:
-        HTTP_PORT = int(sys.argv[1])
-        WS_PORT = int(sys.argv[2])
 
     ip_address = '127.0.0.1'
 
@@ -113,7 +108,7 @@ def main():
 
                 Default FrameType is FrameType.DISTANCE_GRAYSCALE
 
-                Following examples are how to construct depth map, grayscale and amplitude image accordingly: 
+                Following examples are how to construct depth map, grayscale and amplitude image accordingly:
 
                 mat_depth_rgb = np.frombuffer(frame.data_depth_rgb, dtype=np.uint16, count=-1, offset=0).reshape(frame.height, frame.width, 3)
                 mat_depth_rgb = mat_depth_rgb.astype(np.uint8)
@@ -163,10 +158,10 @@ def main():
         try:
             httpd.socket.close()
             httpd.server_close()
-            
+
             sys.exit(0)
         except SystemExit:
             os._exit(0)
 
 if __name__ == "__main__":
-    main()
+    serverLoop()
