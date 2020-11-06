@@ -4,6 +4,7 @@ import asyncio
 import json
 from time import sleep, time
 from threading import Thread, Lock
+from pathlib import Path
 
 import websockets
 from http.server import SimpleHTTPRequestHandler, HTTPServer
@@ -141,6 +142,11 @@ def serverLoop(HTTP_PORT = 8080, WS_PORT = 5678):
     ws_t.deamon = True
     ws_t.start()
 
+    # change dir to module directory
+    web_dir = Path(__file__).absolute().parent
+    os.chdir(web_dir)
+
+    # start http server
     Handler = SimpleHTTPRequestHandler
     Handler.extensions_map.update({
         ".js": "application/javascript",
