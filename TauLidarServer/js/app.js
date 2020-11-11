@@ -1,5 +1,5 @@
 
-import * as Vue from  'https://cdn.jsdelivr.net/npm/vue@next/dist/vue.esm-browser.js'
+import * as Vue from  './vue.esm-browser.js'
 import './pointsView.js'
 
 
