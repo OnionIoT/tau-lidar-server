@@ -69,13 +69,45 @@
                     :data-tooltip="`3D Intergration Time ${intTime3D} us`">
             </div>
 
+            <div style="margin-top: 40px;">
 
+                <div @click="showHelp = true" class='btn btn-action m-2 s-circle btn-sm tooltip tooltip-right'
+                        data-tooltip="Help">
+                        <strong>?</strong>
+                </div>
+            </div>
             
         </div>
         
         <div v-show="!loaded" class="splash-screen p-absolute d-flex">
             <div class="lds-ripple"><div></div><div></div></div>
         </div>
+
+
+        <div class="modal" :class="{active:showHelp}">
+            <a href="#close" class="modal-overlay" aria-label="Close"></a>
+            <div class="modal-container">
+                    <div class="modal-header"><a class="btn btn-clear float-right" @click="showHelp = false"></a>
+                        <div class="modal-title h5">Onion Tau Studio Help</div>
+                    </div>
+                    <div class="modal-body">
+                      <div class="content">
+                        <h4>Pan, Zoom, Rotate</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent risus leo, dictum in vehicula sit amet, feugiat tempus tellus. Duis quis sodales risus. Etiam euismod ornare consequat.</p>
+                        <p>Climb leg rub face on everything give attitude nap all day for under the bed. Chase mice attack feet but rub face on everything hopped up on goofballs.</p>
+                        <h4>UI Controls</h4>
+                        <p>Jelly-o sesame snaps halvah croissant oat cake cookie. Cheesecake bear claw topping. Chupa chups apple pie carrot cake chocolate cake caramels.</p>
+                        <p>De braaaiiiins apocalypsi gorger omero prefrontal cortex undead survivor fornix dictum mauris. Hi brains mindless mortuis limbic cortex soulless creaturas optic nerve.</p>
+                        <h4>More</h4>
+                        <p>Efficiently unleash cross-media information without cross-media value. Quickly maximize timely deliverables for real-time schemas. Dramatically maintain clicks-and-mortar.</p>
+                        <p>Caerphilly swiss fromage frais. Brie cheese and wine fromage frais chalk and cheese danish fontina smelly cheese who moved my cheese cow.</p>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <a class="btn btn-link" @click="showHelp = false">Close</a>
+                    </div>
+                  </div>
+          </div>
         
     </div>
     

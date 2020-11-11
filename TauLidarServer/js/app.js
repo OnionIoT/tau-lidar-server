@@ -32,6 +32,7 @@ const App = {
             autoRefresh: true,
             intTime3D: 1000,
             loaded: false,
+            showHelp: false
         }
     },
     methods: {
