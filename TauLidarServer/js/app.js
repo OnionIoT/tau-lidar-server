@@ -5,13 +5,23 @@ import './pointsView.js'
 
 const App = {
     created() {
-        ws.onopen = () => {
+        
+        if (ws.readyState === 1) {
             this.setRange(this.viewDistance)
             this.setIntTime3D(this.intTime3D)
+            this.loaded = true
+        } else {
+            ws.onopen = () => {
+                this.setRange(this.viewDistance)
+                this.setIntTime3D(this.intTime3D)
+                this.loaded = true
+            }
         }
+
         setInterval(()=>{
             if (this.autoRefresh)
             this.snapshot()
+
         }, 200)
     },
     data() {
@@ -21,6 +31,7 @@ const App = {
             autoRotate: false,
             autoRefresh: true,
             intTime3D: 1000,
+            loaded: false,
         }
     },
     methods: {
