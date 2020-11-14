@@ -1,5 +1,5 @@
 # TauLidarServer
-Python package for Tau Lidar Camera web viewer application
+Python package for Tau Studio web application
 
 ![Onion Tau Lidar Camera](./img/onion-tau-lidar-camera-00.png)
 

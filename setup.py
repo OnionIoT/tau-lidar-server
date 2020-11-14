@@ -1,22 +1,30 @@
+import os
 import setuptools
+
+# get key package details from __version__.py file
+about = {}  # type: ignore
+here = os.path.abspath(os.path.dirname(__file__))
+with open(os.path.join(here, 'TauLidarServer', '__version__.py')) as f:
+    exec(f.read(), about)
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="TauLidarServer",
-    version="0.0.1",
-    author="Onion Corporation",
-    author_email="hello@onion.io",
-    description="Tau Lidar Camera server package",
+    name=about['__title__'],
+    version=about['__version__'],
+    author=about['__author__'],
+    author_email=about['__author_email__'],
+    description=about['__description__'],
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/OnionIoT/tau-lidar-server",
+    url=about['__url__'],
     packages=setuptools.find_packages(),
     install_requires=[
         'TauLidarCamera',
         'websockets'
     ],
+    license=about['__license__'],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",

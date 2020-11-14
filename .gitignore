@@ -2,3 +2,9 @@
 **/include
 **/lib
 **/pyvenv.cfg
+
+*.egg-info/
+**/bin/
+**/lib/
+
+**/__pycache__/
