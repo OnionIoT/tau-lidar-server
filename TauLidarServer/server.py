@@ -55,7 +55,7 @@ def serverLoop(HTTP_PORT = 8080, WS_PORT = 5678):
             attempts += 1
 
             if attempts > 10:
-                print("Exiting due to failure of opening ToF camera!")
+                print("Exiting due to failure to start Tau Camera!")
                 print("Error: %s" % str(e))
                 try:
                     sys.exit(0)
