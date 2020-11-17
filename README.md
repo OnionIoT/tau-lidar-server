@@ -1,7 +1,7 @@
 # TauLidarServer
 Python package for Tau Studio web application
 
-![Onion Tau Lidar Camera](./img/onion-tau-lidar-camera-00.png)
+![Onion Tau Lidar Camera](https://github.com/OnionIoT/tau-lidar-server/raw/master/img/onion-tau-lidar-camera-00.png)
 
 ## Main Features
 
