@@ -1,4 +1,3 @@
-# __init__.py
-
-# Version of the package
-__version__ = "0.0.1"
+'''
+Onion Tau Lidar Camera Server - Web App for Web App for visualizing depth data from the Tau LiDAR Camera
+'''
