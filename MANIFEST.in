@@ -1,0 +1,4 @@
+include TauLidarServer/index.html
+recursive-include TauLidarServer/css
+recursive-include TauLidarServer/img
+recursive-include TauLidarServer/js
