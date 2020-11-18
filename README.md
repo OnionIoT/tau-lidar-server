@@ -7,7 +7,7 @@ Python package for Tau Studio web application
 
 Starts the Tau LiDAR Camera server - initialize the camera and start the Tau Studio Web Application. Use Tau Studio with your browser to visualize data from the Camera and adjust the settings.
 
-TODO: add screenshot or gif of web viewer
+![Onion Tau Studio Web App](img/onion-tau-studio-00.png)
 
 
 ## Installation & Supported Versions

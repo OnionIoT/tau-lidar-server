@@ -6,21 +6,32 @@ This guide will help you set up your Tau LiDAR for the first time. We’ll cover
 * Connecting the Tau Camera to your computer
 * Using the software
 
-## Installing Software
+## First Time Setup
+
+Steps you'll only need to do once!
+
+### Unbox and Prep the Tau Camera
+
+Unpack the Tau Camera
+
+Make sure to remove the protective sticker from the lens
+
+### Installing Software
 
 To use the Tau Studio Web App, you'll need to have Python installed.
 
 1. Follow [the official Python.org instructions](https://docs.python.org/3/using/index.html) to install Python on your machine. **Make sure you install version 3.6.1 or higher.**
 2. Install the `TauLidarServer` Python module using [pip, the Python package manager](https://pip.pypa.io/en/stable/) in a command line window, run: `python -m pip install TauLidarServer`
 
+## Using the Tau Camera
 
-## Connecting the Tau Camera to your Computer
+### Connecting the Tau Camera to your Computer
 
 Use a USB cable to connect the Tau Camera to your computer. It has a USB Type-C port, so you'll need a compatible cable.
 
 TODO: photo of connected Tau Camera
 
-## Using the Software
+### Using the Software
 
 To start the Tau Studio Web App, run this in a command line window:
 
