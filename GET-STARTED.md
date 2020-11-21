@@ -18,10 +18,15 @@ Make sure to remove the protective sticker from the lens
 
 ### Installing Software
 
-To use the Tau Studio Web App, you'll need to have Python installed.
+To use the Tau Studio Web App, you'll need to have Python and TauLidarServer installed.
 
-1. Follow [the official Python.org instructions](https://docs.python.org/3/using/index.html) to install Python on your machine. **Make sure you install version 3.6.1 or higher.**
-2. Install the `TauLidarServer` Python module using [pip, the Python package manager](https://pip.pypa.io/en/stable/) in a command line window, run: `python -m pip install TauLidarServer`
+1. Install python
+Download and install python at https://www.python.org/downloads/. Make sure you install version 3.6.1 or higher. If you
+have questions about python installation, further instructions can be found at the official Python.org instructions:https://docs.python.org/3/using/index.html
+
+2. Install `TauLidarServer` Python module
+Open a command-line window, and run the following command:
+`python -m pip install TauLidarServer`
 
 ## Using the Tau Camera
 
