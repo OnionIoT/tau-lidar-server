@@ -53,36 +53,84 @@ container.appendChild(renderer.domElement);
 
 
 window.ws.onmessage = function (event) {
-    var points = JSON.parse(event.data);
+    var data = JSON.parse(event.data);
+    var height = data.h
+    var width = data.w
+
+    if (data.points !== undefined) {
+        var colors = []
+        var vertices = []
     
+        for(var i = 0; i < data.points.length; i++) {
+            var point = data.points[i];
+            var x = point[0];
+            var y = point[1];
+            var z = point[2];
+    
+            var r = point[3];
+            var g = point[4];
+            var b = point[5];
+            var rgb_str = `rgb(${r}, ${g}, ${b})`
+    
+            vertices.push(new THREE.Vector3(x, y, z));
+            colors.push(new THREE.Color(rgb_str));
+        }
 
-    var colors = []
-    var vertices = []
-    var faces = []
-
-    for(var i = 0; i < points.length; i++) {
-        var point = points[i];
-        var x = point[0];
-        var y = point[1];
-        var z = point[2];
-
-        var r = point[3];
-        var g = point[4];
-        var b = point[5];
-        var rgb_str = `rgb(${r}, ${g}, ${b})`
-
-        vertices.push(new THREE.Vector3(x, y, z));
-        colors.push(new THREE.Color(rgb_str));
+        geometry.vertices = vertices
+        geometry.colors = colors
+    
+        geometry.verticesNeedUpdate = true
+        geometry.colorsNeedUpdate = true
+        
+        buildScene()
     }
 
-    geometry.vertices = vertices
-    geometry.colors = colors
+    if (data.depth !== undefined) {
 
-    geometry.verticesNeedUpdate = true
-    geometry.colorsNeedUpdate = true
-    
-    buildScene()
+        var canvas = document.createElement('canvas')
+        var context = canvas.getContext('2d')
+        var imgData = context.createImageData(width, height)
 
+        canvas.height = height;
+        canvas.width = width;
+
+        for (var i=0;i<imgData.data.length;i+=4) {
+            imgData.data[i] = data.depth[i/4*3] // R
+            imgData.data[i+1] = data.depth[i/4*3 + 1] // G
+            imgData.data[i+2] = data.depth[i/4*3 + 2] // B
+            imgData.data[i+3] = 255
+        }
+
+        context.putImageData(imgData, 0, 0)
+
+        var imgSrc = canvas.toDataURL('image/png')
+
+        document.getElementById("depthView").src = imgSrc
+    }
+
+    if (data.amplitude !== undefined) {
+
+
+        var canvas = document.createElement('canvas')
+        var context = canvas.getContext('2d')
+        var imgData = context.createImageData(width, height)
+
+        canvas.height = height;
+        canvas.width = width;
+
+        for (var i=0;i<imgData.data.length;i+=4) {
+            imgData.data[i] = data.amplitude[i/4] // R
+            imgData.data[i+1] = data.amplitude[i/4] // G
+            imgData.data[i+2] = data.amplitude[i/4] // B
+            imgData.data[i+3] = 255
+        }
+
+        context.putImageData(imgData, 0, 0)
+
+        var imgSrc = canvas.toDataURL('image/png')
+
+        document.getElementById("amplitudeView").src = imgSrc
+    }
 };
 
 render();

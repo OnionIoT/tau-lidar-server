@@ -120,15 +120,24 @@ def serverLoop(HTTP_PORT = 8080, WS_PORT = 5678):
                 mat_amplitude = np.frombuffer(frame.data_amplitude, dtype=np.float32, count=-1, offset=0).reshape(frame.height, frame.width)
                 mat_amplitude = mat_amplitude.astype(np.uint8)
                 '''
-                frame = camera.readFrame(frameType=FrameType.DISTANCE_GRAYSCALE)
+                frame = camera.readFrame(frameType=FrameType.DISTANCE_AMPLITUDE)
                 if frame == None:
                     print('skip frame')
                     continue
-                points = json.dumps(frame.points_3d)
+
                 try:
-                    await websocket.send(points)
-                except:
-                    break
+                    payload = json.dumps({
+                        'points': frame.points_3d,
+                        'depth': frame.data_depth_rgb.tolist(),
+                        'grayscale': frame.data_grayscale.tolist(),
+                        'amplitude': frame.data_amplitude.tolist(),
+                        'h': frame.height,
+                        'w': frame.width
+                    })
+                    await websocket.send(payload)
+                    
+                except Exception as e:
+                    print(e)
             elif data['cmd'] == 'set':
                 if data['param'] == 'range':
                     Camera.setRange(0, data['value'])

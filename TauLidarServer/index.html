@@ -78,6 +78,30 @@
             </div>
             
         </div>
+
+        <div div v-if="loaded" id="pip" class="p-absolute m-2" style="max-width: 300px; z-index: 90; right:0px">
+
+            <div class="card m-2">
+                <div class="card-header">
+                    <!-- <div class="card-title h5">Depth</div> -->
+                    <div class="card-subtitle">Depth</div>
+                </div>
+                <div class="card-image">
+                  <img id="depthView" src="" class="img-responsive" style="width: 300px;">
+                </div>
+            </div>
+
+            <div class="card m-2">
+                <div class="card-header">
+                    <!-- <div class="card-title h5">Depth</div> -->
+                    <div class="card-subtitle">Amplitude</div>
+                </div>
+                <div class="card-image">
+                  <img id="amplitudeView" src="" class="img-responsive" style="width: 300px;">
+                </div>
+            </div>
+
+        </div>
         
         <div v-show="!loaded" class="splash-screen p-absolute d-flex">
             <div class="lds-ripple"><div></div><div></div></div>
