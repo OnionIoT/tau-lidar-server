@@ -28,24 +28,24 @@
                 justify-content: center;
             }
         </style>
-        
+
     </head>
 
   <body>
     <div id='app'>
 
-        
+
         <div v-if="loaded" id="ui" class="p-absolute m-2" style="max-width: 100px; z-index: 90;">
 
             <div class="m-2">
 
                 <div class="btn-group d-block mb-2">
-                    <div @click="autoRefresh = !autoRefresh" class='btn btn-action s-circle btn-sm tooltip tooltip-right' 
+                    <div @click="autoRefresh = !autoRefresh" class='btn btn-action s-circle btn-sm tooltip tooltip-right'
                         data-tooltip="Play | Pause" :class="{'btn-primary': autoRefresh}">
                         <i class="icon icon-arrow-right"></i>
                     </div>
                 </div>
-                
+
                 <div class="d-block mb-2">
                     <div @click="resetView" class='btn btn-action s-circle btn-sm tooltip tooltip-right mr-1'
                         data-tooltip="Reset Camera">
@@ -61,11 +61,11 @@
                     <div class="btn btn-sm btn-action s-circle" @click="pointSize('up')" ><i class="icon icon-plus"></i></div>
                     <div class="btn btn-sm btn-action s-circle" @click="pointSize('down')"><i class="icon icon-minus"></i></div>
                 </div>
-    
+
                 <input type="range"  min="10" max="7000" step="10" class="slider tooltip tooltip-right" @change="setRange" :value="viewDistance"
                     :data-tooltip="`Color Range: ${viewDistance/1000} m`">
-    
-                <input type="range"  min="0" max="1000" step="5" class="slider tooltip tooltip-right" @change="setIntTime3D" :value="intTime3D" 
+
+                <input type="range"  min="0" max="1000" step="5" class="slider tooltip tooltip-right" @change="setIntTime3D" :value="intTime3D"
                     :data-tooltip="`3D Intergration Time ${intTime3D} us`">
             </div>
 
@@ -76,7 +76,7 @@
                         <strong>?</strong>
                 </div>
             </div>
-            
+
         </div>
 
         <div div v-if="loaded" id="pip" class="p-absolute m-2" style="max-width: 300px; z-index: 90; right:0px">
@@ -94,7 +94,7 @@
             <div class="card m-2">
                 <div class="card-header">
                     <!-- <div class="card-title h5">Depth</div> -->
-                    <div class="card-subtitle">Amplitude</div>
+                    <div class="card-subtitle">Grayscale</div>
                 </div>
                 <div class="card-image">
                   <img id="amplitudeView" src="" class="img-responsive" style="width: 300px;">
@@ -102,7 +102,7 @@
             </div>
 
         </div>
-        
+
         <div v-show="!loaded" class="splash-screen p-absolute d-flex">
             <div class="lds-ripple"><div></div><div></div></div>
         </div>
@@ -118,11 +118,11 @@
                       <div class="content">
                         <h4>Pan, Zoom, Rotate</h4>
 
-                        <p> 🌐 3D Rotate - Click and drag 
+                        <p> 🌐 3D Rotate - Click and drag
                             <br>
-                            ↔️ 2D Pan - Right-click and drag    
+                            ↔️ 2D Pan - Right-click and drag
                             <br>
-                            🔍 Zoom - Scroll up and down 
+                            🔍 Zoom - Scroll up and down
                         </p>
 
 
@@ -171,7 +171,7 @@
                             <br>
                             Onion Community Forum: <a href="https://community.onion.io/tau" target="_blank"> https://community.onion.io/tau </a>
                             <br>
-                            GitHub Repos: 
+                            GitHub Repos:
                                 <a href="https://github.com/OnionIoT/tau-lidar-camera" target="_blank"> tau-lidar-camera </a>,
                                 <a href="https://github.com/OnionIoT/tau-lidar-common" target="_blank"> tau-lidar-common </a>,
                                 <a href="https://github.com/OnionIoT/tau-lidar-server" target="_blank"> tau-lidar-server </a>
@@ -183,11 +183,11 @@
                     </div>
                   </div>
           </div>
-        
+
     </div>
-    
+
     <div id="pointsView" style="width:100%; height:100%; position:relative;"> </div>
-    
+
 
 
     <a href="https://taulidar.com" target="_blank">
