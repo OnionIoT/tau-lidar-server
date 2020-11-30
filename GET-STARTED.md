@@ -12,31 +12,35 @@ Steps you'll only need to do once!
 
 ### Unbox and Prep the Tau Camera
 
-Unpack the Tau Camera
+📦 Unpack the Tau Camera
 
-Make sure to remove the protective sticker from the lens
+📷 Make sure to remove the protective sticker from the lens
 
 ### Installing Software
 
 To use the Tau Studio Web App, you'll need to have Python and TauLidarServer installed.
 
-1. Install python
-Download and install python at https://www.python.org/downloads/. Make sure you install version 3.6.1 or higher. If you
-have questions about python installation, further instructions can be found at the official Python.org instructions: https://docs.python.org/3/using/index.html
+#### 🐍 Install python
+Download and install Python at https://www.python.org/downloads/. **Make sure you install version 3.6.1 or higher**.
 
-2. Install `TauLidarServer` Python module
+If you have questions about using Python, check out the [official Python.org  instructions](https://docs.python.org/3/using/index.html).
+
+#### 📩 Install the `TauLidarServer` Python module
+
 Open a command-line window, and run the following command:
 `python -m pip install TauLidarServer`
 
+#### 🥳 You're ready to use your Tau Camera!
+
 ## Using the Tau Camera
 
-### Connecting the Tau Camera to your Computer
+### 📸 Connecting the Tau Camera to your Computer
 
 Use a USB cable to connect the Tau Camera to your computer. It has a USB Type-C port, so you'll need a compatible cable.
 
 TODO: photo of connected Tau Camera
 
-### Using the Software
+### 🖥 Using the Software
 
 To start the Tau Studio Web App, run this in a command line window:
 
@@ -62,3 +66,5 @@ Press Ctrl + C keys to shutdown ...
 Use a **web browser** to navigate to the URL listed in the command line output! And you've arrived to the Tau Studio Web App
 
 ![Onion Tau Studio Web App](img/onion-tau-studio-00.png)
+
+🍻 Have fun!
