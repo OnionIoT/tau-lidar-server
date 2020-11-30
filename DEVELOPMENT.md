@@ -1,5 +1,32 @@
 # Development Guide
 
+This guide covers
+
+* [Releasing a New Version of the Python Module](#releasing-a-new-version-of-the-python-module)
+* [Local Development of the Package](#local-development-of-the-package)
+
+## Releasing a New Version of the Python Module
+
+A new version of the Python module will be **automatically released on PyPi when a new Release is made on GitHub**.
+
+### Pre-requisites
+
+* Update the version number in `TauLidarServer/__version__.py`
+* Create a Release in the GitHub Repo
+
+### Versioning
+
+Version numbers will follow the `MAJOR.MINOR.PATCH` syntax. More info [here](https://semver.org/).
+
+### Release Notes
+
+Each release must be accompanies with changelog notes outlining what's new. This includes:
+
+* Features
+* Bug fixes
+* Performance improvements
+* Etc
+
 ## Local Development of the Package
 
 > Will use [Virtual Environments](https://docs.python.org/3/tutorial/venv.html) and [PIP Editable Installs](https://pip.pypa.io/en/latest/reference/pip_install/#editable-installs) to locally install the package for development purposes
