@@ -39,8 +39,6 @@ Open a command-line window, and run the following command:
 
 Use a USB cable to connect the Tau Camera to your computer. It has a USB Type-C port, so you'll need a compatible cable.
 
-TODO: photo of connected Tau Camera
-
 ### ⚙️ Starting the Tau Studio Software
 
 To start the Tau Studio Web App, run this in a command line window:
