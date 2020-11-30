@@ -1,10 +1,11 @@
 # Getting Started with the Onion Tau LiDAR Camera
 
-This guide will help you set up your Tau LiDAR for the first time. We’ll cover:
+This guide will help you set up your Tau LiDAR Camera for the first time. We’ll cover:
 
+* Unboxing your Tau Camera
 * Installing the required software
 * Connecting the Tau Camera to your computer
-* Using the software
+* Using the Tau Studio web application
 
 ## First Time Setup
 
@@ -40,7 +41,7 @@ Use a USB cable to connect the Tau Camera to your computer. It has a USB Type-C 
 
 TODO: photo of connected Tau Camera
 
-### 🖥 Using the Software
+### ⚙️ Starting the Tau Studio Software
 
 To start the Tau Studio Web App, run this in a command line window:
 
@@ -63,8 +64,12 @@ ToF camera opened successfully:
 Press Ctrl + C keys to shutdown ...
 ```
 
-Use a **web browser** to navigate to the URL listed in the command line output! And you've arrived to the Tau Studio Web App
+### 🖥 Using the Tau Studio web app
+
+Use a **web browser** to navigate to the **URL** listed in the command line output from the last step! And you've arrived to the Tau Studio Web App
 
 ![Onion Tau Studio Web App](img/onion-tau-studio-00.png)
+
+Hit the question mark button in the sidebar for more info on how to work with the Tau Studio
 
 🍻 Have fun!
