@@ -71,3 +71,30 @@ Use a **web browser** to navigate to the **URL** listed in the command line outp
 Hit the question mark button in the sidebar for more info on how to work with the Tau Studio
 
 🍻 Have fun!
+
+## Troubleshooting
+
+A few troubleshooting tips in case you encounter any issues!
+
+### Bad frame ignored error -> Need a better cable
+
+**The Problem:**
+
+If you launch the Tau Studio and get an error in the command line that looks something like this:
+
+```
+Data error, actual size: 33788, expected size: 38480
+Bad frame ignored, bytes length: 33708
+skip frame
+Bad frame ignored, bytes length: 0
+skip frame
+Bad frame ignored, bytes length: 0
+skip frame
+...
+```
+
+**The Solution:**
+
+Try switching to a high-quality cable! If possible, try using a not-super-long USB-C to USB-C cable from a reputable brand.
+
+Then try running the program again.
