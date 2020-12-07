@@ -95,9 +95,10 @@ window.ws.onmessage = function (event) {
         canvas.width = width;
 
         for (var i=0;i<imgData.data.length;i+=4) {
-            imgData.data[i] = data.depth[i/4*3] // R
+            imgData.data[i] = data.depth[i/4*3 + 2] // R
             imgData.data[i+1] = data.depth[i/4*3 + 1] // G
-            imgData.data[i+2] = data.depth[i/4*3 + 2] // B
+            imgData.data[i+2] = data.depth[i/4*3] // B
+
             imgData.data[i+3] = 255
         }
 
