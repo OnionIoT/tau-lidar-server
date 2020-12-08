@@ -41,7 +41,7 @@ def serverLoop(HTTP_PORT = 8080, WS_PORT = 5678):
             camera.setMode(0)                          ## Mode 0, wide fov
             camera.setHdr(0)                           ## HDR off
             camera.setIntegrationTime3d(0, 800)        ## set integration time 0: 1000
-            camera.setMinimalAmplitude(0, 60)          ## set minimal amplitude 0: 80
+            camera.setMinimalAmplitude(0, 10)          ## set minimal amplitude 0: 80
             camera.setOffset(0)                        ## set distance offset: 0
             camera.setRoi(0, 0, 159, 59)               ## set ROI to max width and height
 
