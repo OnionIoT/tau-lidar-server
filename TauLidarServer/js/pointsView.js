@@ -36,14 +36,15 @@ function animate() {
 var pointSize = 0.05;
 
 var material = new THREE.PointsMaterial({size:pointSize, vertexColors:true})
-var geometry = new THREE.Geometry({dynamic:true})
+var geometry = new THREE.Geometry({dynamic:false})
 var pointcloud = new THREE.Points(geometry, material)
 
 
 function buildScene() {
 
-    if (scene.children.length === 0)
-        scene.add(pointcloud)
+    pointcloud = new THREE.Points(geometry, material)
+    scene = new THREE.Scene();
+    scene.add(pointcloud)
 
     render();
 }
@@ -75,6 +76,8 @@ window.ws.onmessage = function (event) {
             vertices.push(new THREE.Vector3(x, y, z));
             colors.push(new THREE.Color(rgb_str));
         }
+
+        geometry = new THREE.Geometry({dynamic:false})
 
         geometry.vertices = vertices
         geometry.colors = colors
