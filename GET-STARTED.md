@@ -95,7 +95,11 @@ skip frame
 
 **The Solution:**
 
-Try switching to a **high-quality cable**! If possible, try using a not-super-long USB-C to USB-C cable from a reputable brand. Then try running the program again.
+A few things to try:
+
+1. Use ctrl+c to kill the program and try running it again
+2. Unplug the Tau Camera from the computer for 10 seconds, reconnect, and try running the program again
+3. Try switching to a **high-quality cable**! If possible, try using a not-super-long USB-C to USB-C cable from a reputable brand. Then try running the program again.
 
 Try to avoid:
 
