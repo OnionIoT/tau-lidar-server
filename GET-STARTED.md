@@ -22,7 +22,7 @@ Steps you'll only need to do once!
 To use the Tau Studio Web App, you'll need to have Python and TauLidarServer installed.
 
 #### 🐍 Install python
-Download and install Python at https://www.python.org/downloads/. **Make sure you install version 3.6.1 or higher**.
+Download and install Python at https://www.python.org/downloads/. **Make sure you install version 3.7 or higher**.
 
 If you have questions about using Python, check out the [official Python.org  instructions](https://docs.python.org/3/using/index.html).
 
@@ -112,3 +112,32 @@ Try to use:
 * Shorter cables
 * Direct USB-C to USB-C if possible
 * Cables from reputable brands
+
+### ImportError: cannot import name 'resources' -> Update your Python Installation
+
+**The Problem:**
+
+If you launch the Tau Studio and get an error in the command line that looks something like this:
+
+```
+Traceback (most recent call last):
+  File "C:\Users\user\AppData\Local\Programs\Python\Python36\lib\runpy.py", line 193, in _run_module_as_main
+    "__main__", mod_spec)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python36\lib\runpy.py", line 85, in _run_code
+    exec(code, run_globals)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python36\lib\site-packages\TauLidarServer\__main__.py", line 4, in <module>
+    from importlib import resources  # Python 3.7+
+ImportError: cannot import name 'resources'
+```
+
+**The Solution:**
+
+It's likely that you need to update your Python installation. Remember that Tau Studio needs Python 3.7 or higher.
+
+Check the version of your Python installation by running:
+
+```
+python -V
+```
+
+If the version printed is below `3.7`, you will need to update!

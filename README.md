@@ -23,7 +23,7 @@ Install using pip on the command line:
 python -m pip install TauLidarServer
 ```
 
-Supports Python 3.6.1+
+Supports Python 3.7+
 
 ## Running the Application
 
