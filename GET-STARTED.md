@@ -2,10 +2,15 @@
 
 This guide will help you set up your Tau LiDAR Camera for the first time. We’ll cover:
 
-* Unboxing your Tau Camera
-* Installing the required software
-* Connecting the Tau Camera to your computer
-* Using the Tau Studio web application
+* [Unboxing your Tau Camera](#unbox-and-prep-the-tau-camera)
+* [Installing the required software](#installing-software)
+* [Connecting the Tau Camera to your computer](#using-the-tau-camera)
+* [Using the Tau Studio web application](#using-the-tau-camera)
+
+As well as:
+
+* [Tips for Troubleshooting](#troubleshooting)
+* [How to update the Tau Studio web app](#updating-tau-studio)
 
 ## First Time Setup
 
@@ -141,3 +146,13 @@ python -V
 ```
 
 If the version printed is below `3.7`, you will need to update!
+
+## Updating Tau Studio
+
+Since Tau Studio is a Python module, it's very straight-forward to update it!
+
+Open a command-line window and run this command:
+
+```
+python -m pip install TauLidarServer --upgrade
+```
