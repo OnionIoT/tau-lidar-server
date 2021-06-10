@@ -5,7 +5,6 @@ import './pointsView.js'
 
 const App = {
     created() {
-        
         if (ws.readyState === 1) {
             this.setRange(this.viewDistance)
             this.setIntTime3D(this.intTime3D)
@@ -32,7 +31,8 @@ const App = {
             autoRefresh: true,
             intTime3D: 1000,
             loaded: false,
-            showHelp: false
+            showHelp: false,
+            showFeedback: false
         }
     },
     methods: {
