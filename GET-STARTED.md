@@ -79,9 +79,15 @@ Hit the question mark button in the sidebar for more info on how to work with th
 
 ## Troubleshooting
 
-A few troubleshooting tips in case you encounter any issues!
+A few troubleshooting tips in case you encounter any issues. So far we have troubleshooting tips for:
 
-### Bad frame ignored error -> Need a better cable
+* [Bad frame ignored error -> Update your Tau Camera Software and try out a better cable](#bad-frame-ignored-error---update-your-tau-camera-software-and-try-out-a-better-cable)
+* [ImportError: cannot import name 'resources' -> Update your Python Installation](#importerror-cannot-import-name-resources---update-your-python-installation)
+
+If you run into an issue not mentioned here, get in touch on the [Onion Community Forum](https://community.onion.io/category/11/tau-camera-corner).
+
+
+### Bad frame ignored error -> Update your Tau Camera Software and try out a better cable
 
 **The Problem:**
 
@@ -100,7 +106,15 @@ skip frame
 
 **The Solution:**
 
-A few things to try:
+The first step will be to make sure you have the latest versions of the TauLidarServer and TauLidarCamera Python modules installed. A fix relating this this error was released in v0.0.4 of the TauLidarCamera module.
+
+Run this command to update the Tau Camera software on your computer:
+
+```
+python -m pip install TauLidarServer --upgrade
+```
+
+If you still have the same `Bad frame ignored` issue after upgrading to the latest version, our experience points to a low-quality cable being the culprit. Here's a few things you can try:
 
 1. Use ctrl+c to kill the program and try running it again
 2. Unplug the Tau Camera from the computer for 10 seconds, reconnect, and try running the program again
