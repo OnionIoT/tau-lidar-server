@@ -83,8 +83,9 @@ A few troubleshooting tips in case you encounter any issues. So far we have trou
 
 * [Bad frame ignored error -> Update your Tau Camera Software and try out a better cable](#bad-frame-ignored-error---update-your-tau-camera-software-and-try-out-a-better-cable)
 * [ImportError: cannot import name 'resources' -> Update your Python Installation](#importerror-cannot-import-name-resources---update-your-python-installation)
+* [Very slow frame rate -> Check your computer's serial ports, update BIOS](#very-slow-frame-rate---check-your-computers-serial-ports-update-bios)
 
-If you run into an issue not mentioned here, get in touch on the [Onion Community Forum](https://community.onion.io/category/11/tau-camera-corner).
+If you run into an issue not mentioned here, get in touch on the [Onion Community Forum](https://community.onion.io/category/11/tau-camera-corner) and we'll do our best to help out.
 
 
 ### Bad frame ignored error -> Update your Tau Camera Software and try out a better cable
@@ -160,6 +161,20 @@ python -V
 ```
 
 If the version printed is below `3.7`, you will need to update!
+
+### Very slow frame rate -> Check your computer's serial ports, update BIOS
+
+**The Problem:**
+
+A visibly slow frame rate coming from the Tau Camera. Lots of time between frames.
+
+**The Solution:**
+
+The Tau Camera should be able to send frames to your computer at a rate of around 30 fps.
+
+We've found that USB issues on the host computer can negatively impact the frame rate. This has been confirmed for Lenovo ThinkPad computers (more info (here)[https://support.lenovo.com/ca/en/solutions/ht080247-troubleshooting-usb-devices-thinkpad]).
+
+To resolve the issue, try updating your computer's BIOS.
 
 ## Updating Tau Studio
 
