@@ -82,6 +82,7 @@ Hit the question mark button in the sidebar for more info on how to work with th
 A few troubleshooting tips in case you encounter any issues. So far we have troubleshooting tips for:
 
 * [Bad frame ignored error -> Update your Tau Camera Software and try out a better cable](#bad-frame-ignored-error---update-your-tau-camera-software-and-try-out-a-better-cable)
+* [Stuck on "Looking for connected Tau LiDAR Camera hardware" -> Update your Tau Camera Software and try some debugging steps](#stuck-on-looking-for-connected-tau-lidar-camera-hardware---update-your-tau-camera-software-and-try-some-debugging-steps)
 * [ImportError: cannot import name 'resources' -> Update your Python Installation](#importerror-cannot-import-name-resources---update-your-python-installation)
 * [Very slow frame rate -> Check your computer's serial ports, update BIOS](#very-slow-frame-rate---check-your-computers-serial-ports-update-bios)
 
@@ -113,9 +114,10 @@ Run this command to update the Tau Camera software on your computer:
 
 ```
 python -m pip install TauLidarServer --upgrade
+python -m pip install TauLidarCamera --upgrade
 ```
 
-If you still have the same `Bad frame ignored` issue after upgrading to the latest version, our experience points to a low-quality cable being the culprit. Here's a few things you can try:
+**If you still have the same `Bad frame ignored` issue** after upgrading to the latest version, our experience points to a low-quality cable being the culprit. Here's a few things you can try:
 
 1. Use ctrl+c to kill the program and try running it again
 2. Unplug the Tau Camera from the computer for 10 seconds, reconnect, and try running the program again
@@ -132,6 +134,35 @@ Try to use:
 * Shorter cables
 * Direct USB-C to USB-C if possible
 * Cables from reputable brands
+
+### Stuck on "Looking for connected Tau LiDAR Camera hardware" -> Update your Tau Camera Software and try some debugging steps
+
+**The Problem:**
+
+If you launch the Tau Studio (or the [example Python programs](https://github.com/OnionIoT/tau-lidar-camera/tree/master/examples)) and the program just shows this line and stays there indefinitely:
+
+```
+Looking for connected Tau LiDAR Camera hardware ...
+```
+
+**The Solution:**
+
+The first step will be to make sure you have the latest versions of the TauLidarServer and TauLidarCamera Python modules installed. A fix relating this this error was released in v0.0.5 of the TauLidarCamera module.
+
+Run this command to update the Tau Camera software on your computer:
+
+```
+python -m pip install TauLidarServer --upgrade
+python -m pip install TauLidarCamera --upgrade
+```
+
+**If you still have the same issue** after upgrading to the latest version, you'll want to take a few actions to further debug the issue. We'll be using the [`checkCamera.py` example Python program](https://github.com/OnionIoT/tau-lidar-camera/tree/master/examples#checkcamerapy-program) to help us out here:
+
+1. If you haven't already, install the pre-requisites for the example program by following the instructions [here](https://github.com/OnionIoT/tau-lidar-camera/tree/master/examples#checkcamerapy-program)
+2. Try running the `checkCamera.py` program in [mode 1]((https://github.com/OnionIoT/tau-lidar-camera/tree/master/examples#mode-1---scanning-all-ports)) where it scans all serial ports for Tau Camera hardware. Details [here](https://github.com/OnionIoT/tau-lidar-camera/tree/master/examples#mode-1---scanning-all-ports).
+    * If the program hangs or doesn't find any connected Tau Cameras when it actually should, move on to step 3
+3. Run the `checkCamera.py` program in [mode 2](https://github.com/OnionIoT/tau-lidar-camera/tree/master/examples#mode-2---specifying-a-port) where you specify the serial port for the connected Tau Camera (details [here](https://github.com/OnionIoT/tau-lidar-camera/tree/master/examples#mode-1---scanning-all-ports)). Note that you'll need to have an idea of which serial port on your computer is connected to the Tau Camera.
+4. Get in touch with us if either or both steps 2 and 3 don't work out and we'll do our best to look into the problem. You can let us know by posting on the [Onion Community Forum](https://community.onion.io/category/11/tau-camera-corner) or [submitting a bug report on GitHub](https://github.com/OnionIoT/tau-lidar-camera/issues/new/choose).
 
 ### ImportError: cannot import name 'resources' -> Update your Python Installation
 
