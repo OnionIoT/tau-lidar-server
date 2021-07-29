@@ -21,7 +21,7 @@ setuptools.setup(
     url=about['__url__'],
     packages=setuptools.find_packages(),
     install_requires=[
-        'TauLidarCamera>=0.0.4',
+        'TauLidarCamera>=0.0.5',
         'websockets'
     ],
     license=about['__license__'],
