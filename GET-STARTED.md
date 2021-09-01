@@ -81,6 +81,7 @@ Hit the question mark button in the sidebar for more info on how to work with th
 
 A few troubleshooting tips in case you encounter any issues. So far we have troubleshooting tips for:
 
+* [Program fails to connect to Tau Camera serial port -> Make sure the user has permission to access the port](#program-fails-to-connect-to-tau-camera-serial-port---make-sure-the-user-has-permission-to-access-the-port)
 * [Bad frame ignored error -> Update your Tau Camera Software and try out a better cable](#bad-frame-ignored-error---update-your-tau-camera-software-and-try-out-a-better-cable)
 * [Stuck on "Looking for connected Tau LiDAR Camera hardware" -> Update your Tau Camera Software and try some debugging steps](#stuck-on-looking-for-connected-tau-lidar-camera-hardware---update-your-tau-camera-software-and-try-some-debugging-steps)
 * [ImportError: cannot import name 'resources' -> Update your Python Installation](#importerror-cannot-import-name-resources---update-your-python-installation)
@@ -88,6 +89,24 @@ A few troubleshooting tips in case you encounter any issues. So far we have trou
 
 If you run into an issue not mentioned here, get in touch on the [Onion Community Forum](https://community.onion.io/category/11/tau-camera-corner) and we'll do our best to help out.
 
+
+### Program fails to connect to Tau Camera serial port -> Make sure the user has permission to access the port
+
+**The Problem:**
+
+If you launch the Tau Studio and get an error in the command line that looks something like this:
+
+![](./img/troubleshooting-00.png)
+
+**The Solution:**
+
+First confirm your Tau Camera is securely connected with the USB cable.
+
+Then, as the output of the program says, **make sure the user running the program has permission to access the serial port.**
+
+On Windows, try running the command prompt as an administrator and trying to run the program again.
+
+On Unix systems (like Linux or Mac), giving users permission to access serial ports is generally done by adding the user to a specific group. See [this StackExchange post](https://askubuntu.com/questions/58119/changing-permissions-on-serial-port) for a Ubuntu example. The process may be different for other distros.
 
 ### Bad frame ignored error -> Update your Tau Camera Software and try out a better cable
 
